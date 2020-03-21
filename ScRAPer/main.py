@@ -7,7 +7,7 @@ from gensim.models import Word2Vec
 #bot = Scraper()
 #bot.get_songs()
 
-sample = open("/Users/macbook/Desktop/eminem-lyrics.txt", "r")
+sample = open("/Users/macbook/Desktop/eminem-lyrics.txt.txt", "r")
 s = sample.read()
 
 # Replaces escape character with space

@@ -34,7 +34,7 @@ class Scraper():
                 self.i += 1
 
         print(len(self.lyrics))
-        f = open("/Users/macbook/Desktop/eminem-lyrics.txt", "w+")
+        f = open("/Users/macbook/Desktop/eminem-lyrics.txt.txt", "w+")
         for m in self.lyrics:
             f.write(m)
         f.close()
