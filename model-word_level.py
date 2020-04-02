@@ -9,7 +9,7 @@ def split_input_target(chunk):
     return input_text, target_text
 
 
-txt2id, id2txt, text_as_int = tokenizer.getDictionaries_Phoneme_Level()
+txt2id, id2txt, text_as_int = tokenizer.getDictionaries_Word_Level()
 
 seq_length = 100
 examples_per_epoch = len(text_as_int) // (seq_length + 1)
@@ -62,20 +62,15 @@ model = build_model(
 
 for input_example_batch, target_example_batch in dataset.take(1):
     example_batch_predictions = model(input_example_batch)
-    #print(example_batch_predictions.shape, "# (batch_size, sequence_length, vocab_size)")
-    for x in input_example_batch[0]:
-        print(id2txt[x]+' ',end='')
-    print()
-    for x in target_example_batch[0]:
-        print(id2txt[x]+' ',end='')
-    print()
+    print(example_batch_predictions.shape, "# (batch_size, sequence_length, vocab_size)")
 
 # model.summary()
 
 sampled_indices = tf.random.categorical(example_batch_predictions[0], num_samples=1)
 sampled_indices = tf.squeeze(sampled_indices, axis=-1).numpy()
-#print("Input: \n", repr(" ".join(id2txt[input_example_batch[0]])))
-#print("Next Word Predictions: \n", repr(" ".join(id2txt[sampled_indices])))
+print("Input: \n", repr(" ".join(id2txt[input_example_batch[0]])))
+print()
+print("Next Word Predictions: \n", repr(" ".join(id2txt[sampled_indices])))
 
 
 def loss(labels, logits):
@@ -98,7 +93,7 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     save_weights_only=True)
 
 # Directory where the checkpoints will be saved
-checkpoint_dir = 'training_checkpoints_phoneme_level'
+checkpoint_dir = 'training_checkpoints_word_level'
 # Name of the checkpoint files
 checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt_{epoch}")
 
@@ -107,4 +102,4 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     save_weights_only=True)
 
 EPOCHS = 10
-history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])
+#history = model.fit(dataset, epochs=EPOCHS, callbacks=[checkpoint_callback])

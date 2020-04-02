@@ -57,7 +57,7 @@ for bar in bars:
 vocabulary = sorted(diction.keys())
 indexes = dict()
 print(len(CMUSpelling.keys()))
-f = open("eminem-dictionary.txt", 'w')
+f = open("eminem-dictionary-with-stress.txt", 'w')
 index = 0
 for i in vocabulary:
     f.write(i)

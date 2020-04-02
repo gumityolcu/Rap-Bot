@@ -19,7 +19,7 @@ def generate_text(model, start_words, txt2id, id2txt):
     # Evaluation step (generating text using the learned model)
     start_string=""
     for w in start_words:
-        start_string+=" "+w
+        start_string+=w+" "
     # Number of characters to generate
     num_generate = 1000
 
@@ -55,7 +55,7 @@ def generate_text(model, start_words, txt2id, id2txt):
     return (start_string + ' '.join(text_generated))
 
 
-MODEL = 'WORD-LEVEL'
+MODEL = 'PHONEME-LEVEL'
 
 if MODEL == "WORD-LEVEL":
     checkpoint_dir = './training_checkpoints_word_level'
@@ -63,7 +63,7 @@ else:
     checkpoint_dir = './training_checkpoints_phoneme_level'
 
 print(tf.train.latest_checkpoint(checkpoint_dir))
-txt2id, id2txt, text_as_int = tokenizer.getDictionaries_Word_Level()
+txt2id, id2txt, text_as_int = tokenizer.getDictionaries_Phoneme_Level()
 
 # Length of the vocabulary in chars
 vocab_size = len(id2txt)
